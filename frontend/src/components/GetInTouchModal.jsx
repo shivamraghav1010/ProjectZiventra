@@ -22,13 +22,21 @@ const GetInTouchModal = ({ isOpen, onClose }) => {
       const headers = { 'Content-Type': 'application/json' };
       if (token) headers['Authorization'] = `Bearer ${token}`;
 
-      const res = await fetch('/api/auth/inquiry', {
+      const rawApiUrl = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://projectziventrabackend.onrender.com' : '');
+      const API_BASE_URL = (rawApiUrl || '').replace(/\/+$/, '');
+      const res = await fetch(`${API_BASE_URL}/api/auth/inquiry`, {
         method: 'POST',
         headers,
         body: JSON.stringify(formData),
       });
 
-      const data = await res.json();
+      let data = {};
+      try {
+        data = await res.json();
+      } catch (e) {
+        throw new Error(`Server returned ${res.status}. If the backend is waking up, please retry shortly.`);
+      }
+
       if (res.ok && data.success) {
         setStatus({ loading: false, success: true, error: '' });
         setTimeout(() => {
@@ -40,7 +48,7 @@ const GetInTouchModal = ({ isOpen, onClose }) => {
         setStatus({ loading: false, success: false, error: data.message || 'Error sending message' });
       }
     } catch (err) {
-      setStatus({ loading: false, success: false, error: 'Network error. Please try again.' });
+      setStatus({ loading: false, success: false, error: err.message || 'Network error. Please try again.' });
     }
   };
 

@@ -141,4 +141,33 @@ router.get('/me', protect, async (req, res) => {
   }
 });
 
+// @route   POST /api/auth/inquiry
+// @desc    Submit contact or property inquiry
+// @access  Public
+router.post('/inquiry', async (req, res) => {
+  try {
+    const { name, email, phone, message, propertyTitle } = req.body;
+
+    if (!name || !email) {
+      return res.status(400).json({
+        success: false,
+        message: 'Name and email are required.',
+      });
+    }
+
+    console.log(`[UrbanVista] New inquiry received from ${name} (${email}):`, { phone, message, propertyTitle });
+
+    return res.status(200).json({
+      success: true,
+      message: 'Thank you for reaching out! Our luxury estate specialist will contact you shortly.',
+    });
+  } catch (error) {
+    console.error('Inquiry error:', error);
+    return res.status(500).json({
+      success: false,
+      message: 'Error processing inquiry. Please try again.',
+    });
+  }
+});
+
 export default router;
