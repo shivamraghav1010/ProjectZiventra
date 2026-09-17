@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  
+  body {
+    background-color: #FFFFFF;
+    color: #0F172A;
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: #1E60FF;
+    color: #FFFFFF;
+  }
+}
+
+/* Custom Typography & Display */
+.urbanvista-display {
+  font-family: 'Outfit', 'Syne', sans-serif;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+/* Custom Subtle Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Gradient Vignettes */
+.hero-vignette {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(3, 9, 20, 0.4) 50%,
+    rgba(3, 9, 20, 0.95) 85%,
+    #030914 100%
+  );
+}
+
+.text-gradient-hero {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85) 0%, rgba(148, 163, 184, 0.6) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
